@@ -7,16 +7,20 @@ const PORT = 3000;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
-let everyNote = [];
+app.use(express.static('public'));
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
-app.get("/api/notes", function(req, res){
-    everyNote = fs.readFileSync("./db/db.json", "utf8")
-      everyNote = JSON.parse(everyNote);  
+/* let everyNote = [];
+
+ app.get("/api/notes", function(req, res){
+     everyNote = fs.readFileSync("./db/db.json", "utf8")
+       everyNote = JSON.parse(everyNote);  
      
-res.json(everyNote);
-})
+ res.json(everyNote);
+ })
 
 app.post("/api/notes", function(req, res){
   everyNote = fs.readFileSync("./db/db.json", "utf8")
@@ -31,7 +35,7 @@ app.post("/api/notes", function(req, res){
         res.json(JSON.parse(everyNote));  
 })
 
-app.get("/", function(req, res){
+/*app.get("/", function(req, res){
     res.sendFile(path.join(__dirname, "public/index.html"))
 })
 app.get("/notes", function(req, res){
@@ -50,7 +54,7 @@ app.delete("/api/notes/:id", function(req, res){
     fs.writeFileSync("./db/db.json", everyNote, "utf8")
     
     res.json(JSON.parse(everyNote));
-})
+})*/
 app.listen(PORT, function(){
     console.log("server is listening on: http://localhost:" + PORT )
 })
